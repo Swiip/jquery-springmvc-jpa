@@ -49,7 +49,7 @@
 	</security:http>
 
 	<security:authentication-manager>
-		<security:authentication-provider user-service-ref="joueurServiceImpl" />
+		<security:authentication-provider user-service-ref="userServiceImpl" />
 	</security:authentication-manager>
 
 </beans>
