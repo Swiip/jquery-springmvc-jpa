@@ -12,7 +12,7 @@
 
 	<context:annotation-config />
 
-	<context:component-scan base-package="org.developpez.skillbrowser">
+	<context:component-scan base-package="com.developpez.skillbrowser">
 		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
 	</context:component-scan>
 
@@ -30,7 +30,7 @@
 		<property name="entityManagerFactory" ref="entityManagerFactory" />
 	</bean>
 
-	<jpa:repositories base-package="org.developpez.skillbrowser.repository" />
+	<jpa:repositories base-package="com.developpez.skillbrowser.repository" />
 
 	<security:http security="none" pattern="/rest/anonymous/**" />
 	<security:http security="none" pattern="/rest/projection/**" />
@@ -41,10 +41,7 @@
 	<security:http security="none" pattern="/favicon.ico" />
 
 	<security:http auto-config="true">
-		<security:intercept-url pattern="/**" access="ROLE_JOUEUR" />
-		<security:intercept-url pattern="/rest/admin/**" access="ROLE_ADMIN" />
-		<security:intercept-url pattern="/admin/**" access="ROLE_ADMIN" />
-		<security:form-login login-page="/login.jsp" default-target-url="/" />
+		<security:intercept-url pattern="/**" access="ROLE_USER" />
 		<security:remember-me />
 	</security:http>
 

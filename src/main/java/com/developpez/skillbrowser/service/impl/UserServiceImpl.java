@@ -1,5 +1,6 @@
 package com.developpez.skillbrowser.service.impl;
 
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.domain.Page;
@@ -16,7 +17,7 @@ import com.developpez.skillbrowser.service.UserService;
 
 @Service
 @Transactional
-public class UserServiceImpl implements UserService, UserDetailsService {
+public class UserServiceImpl implements UserService, UserDetailsService, InitializingBean {
 
     @Autowired
     private UserRepository userRepository;
@@ -31,6 +32,16 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             throw new UsernameNotFoundException(username + " n'existe pas");
         } else {
             return user;
+        }
+    }
+
+    public void afterPropertiesSet() throws Exception {
+        if(userRepository.count() == 0) {
+            User user = new User();
+            user.setFullname("admin");
+            user.setLogin("admin");
+            user.setPassword("admin");
+            userRepository.save(user);
         }
     }
 

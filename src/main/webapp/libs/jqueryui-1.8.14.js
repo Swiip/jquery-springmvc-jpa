@@ -1,0 +1,1 @@
+define('jqueryui', ['jquery'], function (jQuery) {});
