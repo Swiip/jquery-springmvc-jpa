@@ -32,20 +32,15 @@
 
 	<jpa:repositories base-package="com.developpez.skillbrowser.repository" />
 
-	<security:http security="none" pattern="/rest/anonymous/**" />
-	<security:http security="none" pattern="/rest/projection/**" />
-	<security:http security="none" pattern="/login.jsp" />
-	<security:http security="none" pattern="/css/**" />
-	<security:http security="none" pattern="/js/**" />
-	<security:http security="none" pattern="/images/**" />
-	<security:http security="none" pattern="/favicon.ico" />
+	<security:http security="none" pattern="/rest/user/status" />
+	<security:http security="none" pattern="/rest/user/login" />
 
 	<security:http auto-config="true">
-		<security:intercept-url pattern="/**" access="ROLE_USER" />
+		<security:intercept-url pattern="/rest/**" access="ROLE_USER" />
 		<security:remember-me />
 	</security:http>
 
-	<security:authentication-manager>
+	<security:authentication-manager alias="authenticationManager">
 		<security:authentication-provider user-service-ref="userServiceImpl" />
 	</security:authentication-manager>
 

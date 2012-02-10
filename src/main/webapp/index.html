@@ -2,9 +2,29 @@
 <html>
 <head>
 <title>Skill Browser</title>
+<link rel="stylesheet" type="text/css" media="screen" href="libs/themes/960.css" />
+<link rel="stylesheet" type="text/css" media="screen" href="libs/themes/flick/jquery-ui-1.8.17.custom.css" />
 <script data-main="main" src="libs/require-1.0.5.js"></script>
 </head>
 <body>
-	<h1>Skill Browser</h1>
+    <div class="grid_6 ui-widget ui-widget-content ui-corner-all div-login" style="display: none;">
+        <form>
+            <table style="margin: 5px;">
+                <tr>
+                    <td width="50%" style="text-align: right;">Login :</td>
+                    <td width="50%"><input type='text' name='j_username' class="ui-corner-all j_username" /></td>
+                </tr>
+                <tr>
+                    <td style="text-align: right;">Mot de passe :</td>
+                    <td><input class="ui-corner-all j_password" type='password' name='j_password'></td>
+                </tr>
+                <tr>
+                    <td style="text-align: right;">Se souvenir de moi :</td>
+                    <td><input type="checkbox" name="_spring_security_remember_me"></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+    <h1>Skill Browser</h1>
 </body>
 </html>

@@ -4,16 +4,17 @@ require(
  */
 {
     paths : {
-        jquery : "libs/jquery-1.7.1"
+        jquery : "libs/jquery-1.7.1",
+        jqueryui : "libs/jqueryui-1.8.14"
     }
 },
 /**
  * Dependencies
  */
-[ "jquery" ],
+[ "login" ],
 /**
  * Main function
  */
-function($) {
-    console.log($);
+function(login) {
+    login.init();
 });
