@@ -15,11 +15,11 @@ define([ "jquery", "jqueryui/dialog" ], function($) {
                 width : 380,
                 modal : true,
                 buttons : {
-                    Enregistrer : $.proxy(function() {
+                    Login : $.proxy(function() {
                         $.ajax({
                             url : "rest/user/login",
                             type : "POST",
-                            data : $("#div-login form").serialize(),
+                            data : $(".div-login form").serialize(),
                             success : $.proxy(this.loginResult, this)
                         });
                     }, this)

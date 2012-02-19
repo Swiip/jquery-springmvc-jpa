@@ -5,16 +5,18 @@ require(
 {
     paths : {
         jquery : "libs/jquery-1.7.1",
-        jqueryui : "libs/jqueryui-1.8.14"
+        jqueryui : "libs/jqueryui-1.8.14",
+        themeswitcher : "http://jqueryui.com/themeroller/themeswitchertool/?"
     }
 },
 /**
  * Dependencies
  */
-[ "login" ],
+[ "jquery", "login", "themeswitcher" ],
 /**
  * Main function
  */
-function(login) {
+function($, login) {
+    $('#switcher').themeswitcher();
     login.init();
 });
