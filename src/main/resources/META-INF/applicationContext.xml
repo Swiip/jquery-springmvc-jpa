@@ -32,10 +32,11 @@
 
 	<jpa:repositories base-package="com.developpez.skillbrowser.repository" />
 
-	<security:http security="none" pattern="/rest/user/status" />
-	<security:http security="none" pattern="/rest/user/login" />
+	<security:http security="none" pattern="/rest/login" />
+	
+	<bean id="http403ForbiddenEntryPoint" class="org.springframework.security.web.authentication.Http403ForbiddenEntryPoint" />
 
-	<security:http auto-config="true">
+	<security:http entry-point-ref="http403ForbiddenEntryPoint">
 		<security:intercept-url pattern="/rest/**" access="ROLE_USER" />
 		<security:remember-me />
 	</security:http>

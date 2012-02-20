@@ -1,15 +1,19 @@
 define([ "jquery", "jqueryui/dialog" ], function($) {
     return {
-        loginStatus : null,
+        callback : null,
+        
+        status : null,
 
-        init : function() {
+        init : function(callback) {
+            this.callback = callback;
             $.ajax({
-                url : "rest/user/status",
-                success : $.proxy(this.loginResult, this)
+                url : "rest/login",
+                method : "GET",
+                success : $.proxy(this.result, this)
             });
         },
         
-        loginDialog : function() {
+        dialog : function() {
             $(".div-login").dialog({
                 title : "Identification",
                 width : 380,
@@ -17,32 +21,31 @@ define([ "jquery", "jqueryui/dialog" ], function($) {
                 buttons : {
                     Login : $.proxy(function() {
                         $.ajax({
-                            url : "rest/user/login",
+                            url : "rest/login",
                             type : "POST",
                             data : $(".div-login form").serialize(),
-                            success : $.proxy(this.loginResult, this)
+                            success : $.proxy(this.result, this)
                         });
                     }, this)
                 }
             });
         },
 
-        loginResult : function(loginStatus) {
-            if(loginStatus.loggedIn) {
-                this.loginStatus = loginStatus;
+        result : function(status) {
+            if(status.loggedIn) {
+                this.status = status;
                 $(".div-login").dialog("close");
-                require(["index"], function(index) {
-                    index.init();
-                });
+                this.callback();
             } else {
-                this.loginDialog();
+                this.dialog();
             }
         },
         
         logout : function() {
             $.ajax({
-                url : "rest/user/logout",
-                success : $.proxy(this.loginDialog, this)
+                url : "rest/login",
+                method : "DELETE",
+                success : $.proxy(this.dialog, this)
             });
         }
     };
