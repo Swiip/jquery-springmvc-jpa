@@ -8,5 +8,11 @@ import com.developpez.skillbrowser.model.User;
 public interface UserService {
     
     Page<User> getAll(Pageable pageable);
+    
+    User get(Integer id);
+    
+    void save(User user);
+    
+    void delete(User user);
 
 }

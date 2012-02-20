@@ -15,11 +15,13 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
 @Table(name = "usr")
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class User implements UserDetails {
 
     private static final long serialVersionUID = 818129969599480161L;

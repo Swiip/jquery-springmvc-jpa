@@ -2,7 +2,6 @@ package com.developpez.skillbrowser.service.impl;
 
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -26,7 +25,19 @@ public class UserServiceImpl implements UserService, UserDetailsService, Initial
         return userRepository.findAll(pageable);
     }
     
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException, DataAccessException {
+    public User get(Integer id) {
+        return userRepository.findOne(id);
+    }
+    
+    public void save(User user) {
+        userRepository.save(user);
+    }
+    
+    public void delete(User user) {
+        userRepository.delete(user);
+    }
+    
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByLogin(username);
         if (user == null) {
             throw new UsernameNotFoundException(username + " n'existe pas");
