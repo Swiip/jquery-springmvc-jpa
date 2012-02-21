@@ -35,7 +35,9 @@ define([ "jquery", "jqueryui/dialog" ], function($) {
             if(status.loggedIn) {
                 this.status = status;
                 $(".div-login").dialog("close");
-                this.callback();
+                if(this.callback) {
+                    this.callback();
+                }
             } else {
                 this.dialog();
             }

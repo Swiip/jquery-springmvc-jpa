@@ -7,7 +7,7 @@ define([ "jquery", "underscore", "text!users.html", "jqgrid" ], function($, _, u
                 url : "rest/user",
                 editurl : "rest/user",
                 caption : "Users",
-                colNames : [ "Id", "Login", "Password", "Full Name" ],
+                colNames : [ "Id", "Login", "Password", "Full Name", "Skills" ],
                 colModel : [ {
                     name : "id",
                     editable : false
@@ -25,6 +25,22 @@ define([ "jquery", "underscore", "text!users.html", "jqgrid" ], function($, _, u
                 }, {
                     name : "fullname",
                     editable : true
+                }, {
+                    name : "skills.id",
+                    formatter : function(cellvalue, options, rowObject) {
+                        var result = "";
+                        $(rowObject.skills).each(function(index, item) {
+                            result += item.name + "<br/>";
+                        });
+                        return result;
+                    },
+                    editable : true,
+                    edittype : "select",
+                    editoptions : {
+                        dataUrl : "rest/skill/options",
+                        multiple : true,
+                        size : 5
+                    },
                 } ],
                 pager : "#pager-users"
             }).jqGrid("navGrid", "#pager-users", {

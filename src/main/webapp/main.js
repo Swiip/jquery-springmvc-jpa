@@ -17,15 +17,24 @@ require(
 /**
  * Dependencies
  */
-[ "jquery", "login", "themeswitcher" ],
+[ "jquery", "login", "themeswitcher", "jqueryui/button" ],
 /**
  * Main function
  */
 function($, login) {
-    $('#switcher').themeswitcher();
-    login.init(function() {
+    $("#switcher").themeswitcher();
+    
+    $(".menu").buttonset();
+    $(".menu .users").click(function() {
         require(["users"], function(users) {
-            users.init(); 
+            users.init();
         });
     });
+    $(".menu .skills").click(function() {
+        require(["skills"], function(skills) {
+            skills.init();
+        });
+    });
+    
+    login.init();
 });

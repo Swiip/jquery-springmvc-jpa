@@ -29,6 +29,7 @@ public class UserController {
 
     @RequestMapping(method = RequestMethod.PUT)
     public void put(ServletResponse response, @RequestBody User user) {
+        
         userService.save(user);
     }
     
@@ -36,4 +37,5 @@ public class UserController {
     public void delete(ServletResponse response, @RequestBody User user) {
         userService.delete(user);
     }
+
 }

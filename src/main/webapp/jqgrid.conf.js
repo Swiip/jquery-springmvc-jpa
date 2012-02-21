@@ -1,5 +1,5 @@
 define([ "order!jquery", "order!libs/i18n/grid.locale-en", "order!jqgrid-lib" ], function($) {
-    $.extend($.jgrid, {
+    $.extend(true, $.jgrid, {
         defaults : {
             height : "auto",
             autowidth : true,
@@ -8,7 +8,7 @@ define([ "order!jquery", "order!libs/i18n/grid.locale-en", "order!jqgrid-lib" ],
             mtype : "GET",
             serializeGridData : function(data) {
                 return {
-                    page : data.page,
+                    "page.page" : data.page,
                     "page.size" : data.rows,
                     "page.sort" : data.sidx,
                     "page.sort.dir" : data.sord
@@ -17,8 +17,10 @@ define([ "order!jquery", "order!libs/i18n/grid.locale-en", "order!jqgrid-lib" ],
             datatype : "json",
             jsonReader : {
                 root : "content",
-                page : "number",
-                total : "totalElements",
+                page : function(obj) {
+                    return obj.number + 1; 
+                },
+                total : "totalPages",
                 records : "size",
                 repeatitems : false,
                 id : "0"
@@ -33,6 +35,14 @@ define([ "order!jquery", "order!libs/i18n/grid.locale-en", "order!jqgrid-lib" ],
             serializeEditData : function(data) {
                 if(data.id == "_empty") {
                     delete data.id;
+                }
+                if(data["skills.id"]) {
+                    var skills = data["skills.id"].split(",");
+                    delete data["skills.id"];
+                    data.skills = new Array();
+                    $(skills).each(function(index, item) {
+                        data.skills.push({ id : item });
+                    });
                 }
                 return JSON.stringify(data);
             }
