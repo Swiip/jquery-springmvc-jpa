@@ -1,6 +1,6 @@
 package com.developpez.skillbrowser.controller;
 
-import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletResponse;
 
@@ -23,6 +23,12 @@ public class SkillController {
     @Autowired
     private SkillService skillService;
 
+    @RequestMapping(value = "/all", method = RequestMethod.GET)
+    public @ResponseBody
+    List<Skill> get() {
+        return skillService.getAll();
+    }
+
     @RequestMapping(method = RequestMethod.GET)
     public @ResponseBody
     Page<Skill> get(Pageable pageable) {
@@ -37,15 +43,6 @@ public class SkillController {
     @RequestMapping(method = RequestMethod.DELETE)
     public void delete(ServletResponse response, @RequestBody Skill skill) {
         skillService.delete(skill);
-    }
-    
-    @RequestMapping("/options")
-    public void options(ServletResponse response) throws IOException {
-        response.getWriter().write("<select>");
-        for (Skill skill : skillService.getAll()) {
-            response.getWriter().write("<option value='" + skill.getId() + "'>" + skill.getName() + "</option>");
-        }
-        response.getWriter().write("</select>");
     }
 
 }

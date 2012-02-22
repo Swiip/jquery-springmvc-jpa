@@ -5,7 +5,6 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -36,7 +35,7 @@ public class User implements UserDetails {
 
     private String fullname;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToMany(cascade = {}, fetch = FetchType.LAZY)
     private Set<Skill> skills = new HashSet<Skill>(0);
 
     public Integer getId() {

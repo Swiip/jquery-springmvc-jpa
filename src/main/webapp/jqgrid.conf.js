@@ -18,7 +18,7 @@ define([ "order!jquery", "order!libs/i18n/grid.locale-en", "order!jqgrid-lib" ],
             jsonReader : {
                 root : "content",
                 page : function(obj) {
-                    return obj.number + 1; 
+                    return obj.number + 1;
                 },
                 total : "totalPages",
                 records : "size",
@@ -33,15 +33,16 @@ define([ "order!jquery", "order!libs/i18n/grid.locale-en", "order!jqgrid-lib" ],
                 contentType : "application/json"
             },
             serializeEditData : function(data) {
-                if(data.id == "_empty") {
+                if (data.id == "_empty") {
                     delete data.id;
                 }
-                if(data["skills.id"]) {
-                    var skills = data["skills.id"].split(",");
-                    delete data["skills.id"];
+                if (data.skills) {
+                    var skills = data.skills.split(",");
                     data.skills = new Array();
-                    $(skills).each(function(index, item) {
-                        data.skills.push({ id : item });
+                    _.each(skills, function(item) {
+                        data.skills.push({
+                            id : item
+                        });
                     });
                 }
                 return JSON.stringify(data);

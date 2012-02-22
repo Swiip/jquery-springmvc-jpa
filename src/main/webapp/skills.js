@@ -1,7 +1,9 @@
-define([ "jquery", "underscore", "text!skills.html", "jqgrid" ], function($, _, skills) {
+define([ "jquery", "underscore", "text!grid.html", "jqgrid" ], function($, _, grid) {
     return {
         init : function() {
-            $(".content").html(_.template(skills));
+            $(".content").html(_.template(grid, {
+                id : "skills"
+            }));
 
             $("#grid-skills").jqGrid({
                 url : "rest/skill",
