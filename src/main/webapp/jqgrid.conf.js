@@ -23,12 +23,16 @@ define([ "order!jquery", "order!libs/i18n/grid.locale-en", "order!jqgrid-lib" ],
                 total : "totalPages",
                 records : "size",
                 repeatitems : false,
-                id : "0"
+                id : "0",
+                userdata : "content"
             }
         },
 
         edit : {
             mtype : "PUT",
+            recreateForm : true,
+            closeAfterAdd : true,
+            closeAfterEdit : true,
             ajaxEditOptions : {
                 contentType : "application/json"
             },

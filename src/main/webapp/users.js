@@ -47,8 +47,9 @@ define([ "jquery", "underscore", "text!grid.html", "text!select.html", "jqgrid" 
                         },
                         dataInit : function(element) {
                             var selectedRow = $("#grid-users").jqGrid("getGridParam", "selrow");
-                            var rowData = $("#grid-users").jqGrid("getRowData", selectedRow);
-                            $(element).val(_.pluck(rowData.skills, "id"));
+                            var userData = $("#grid-users").jqGrid("getGridParam", "userData");
+                            var values = _.pluck(userData[selectedRow - 1].skills, "id");
+                            $(element).val(values);
                         },
                         multiple : true,
                         size : 5
