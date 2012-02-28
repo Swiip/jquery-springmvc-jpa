@@ -10,14 +10,6 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd">
 
-	<context:annotation-config />
-
-	<context:component-scan base-package="com.developpez.skillbrowser">
-		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
-	</context:component-scan>
-
-	<tx:annotation-driven transaction-manager="transactionManager" />
-
 	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
 		<property name="jpaVendorAdapter">
 			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" />
@@ -25,12 +17,20 @@
 		<property name="dataSource" ref="dataSource" />
 		<property name="persistenceUnitName" value="skillBrowserUnit" />
 	</bean>
+	
+	<jpa:repositories base-package="com.developpez.skillbrowser.repository" />
 
+	<context:annotation-config />
+	
 	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
 		<property name="entityManagerFactory" ref="entityManagerFactory" />
 	</bean>
+	
+	<tx:annotation-driven transaction-manager="transactionManager" />
 
-	<jpa:repositories base-package="com.developpez.skillbrowser.repository" />
+	<context:component-scan base-package="com.developpez.skillbrowser">
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+	</context:component-scan>
 
 	<security:http security="none" pattern="/rest/login" />
 	
