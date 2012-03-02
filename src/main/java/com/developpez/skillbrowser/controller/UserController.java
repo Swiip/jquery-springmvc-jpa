@@ -29,7 +29,6 @@ public class UserController {
 
     @RequestMapping(method = RequestMethod.PUT)
     public void put(ServletResponse response, @RequestBody User user) {
-        
         userService.save(user);
     }
     
