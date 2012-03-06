@@ -1,9 +1,15 @@
-<persistence xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
-	version="2.0">
+<persistence xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd" version="2.0">
+
+	<!-- Pretty standard persistence.xml file to enable JPA 2 persistence unit -->
 	<persistence-unit name="skillBrowserUnit" transaction-type="RESOURCE_LOCAL">
+		<!-- Define Hibernate as the JPA 2 implementation -->
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
 		<properties>
+			<!-- Convenient Hibernate property which will create or even update DB schema to work with model -->
 			<property name="hibernate.hbm2ddl.auto" value="update" />
+			<!-- Interesting property which name tables (when not explicitly specified) with "secured" names. It's handle special problem of MySQL which support 
+				or not case on Windows or Linux... -->
 			<property name="hibernate.ejb.naming_strategy" value="org.hibernate.cfg.ImprovedNamingStrategy" />
 		</properties>
 	</persistence-unit>
