@@ -1,15 +1,33 @@
+<!-- For those which are not very familiar with Maven, this file is the one and only reference for the build of the project. -->
+<!-- All common Java IDE are now completely integrated with it and will configure themselves automatically from this file -->
+<!-- Maven use concept of convetion over configuration and this project follow all Maven conventions and this way, this configuration file is pretty light -->
+<!-- One of the well known features of Maven is the dependency management which is heavily used for this project. It is an error to limit Maven to only 
+	this usage but unfortunately, in this simple project there is little else configurations. -->
+<!-- Perhaps I will do some updates sometime to demonstrate other power tools like release, profiles, specific packaging or reports. -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+
+	<!-- Define the identification of the project, in Maven its called an artifact -->
 	<groupId>com.developpez</groupId>
 	<artifactId>skillbrowser</artifactId>
 	<packaging>war</packaging>
 	<version>0.0.1-SNAPSHOT</version>
+
+	<!-- Define informative information on the project. There is many more informations which can be fulfilled -->
 	<name>skillbrowser Maven Webapp</name>
 	<url>http://maven.apache.org</url>
+
+	<!-- The build block allow to specify all specific parameters. As this project follow all Maven conventions, there is no need to configure many things. -->
 	<build>
+		<!-- Final name is an important parameter which handle the final package name. As this is a war and the war name will often indicates the web context 
+			of the webapp, this configuration override standard final name which contains the version number to a value more stable -->
 		<finalName>skillbrowser</finalName>
 	</build>
+
+	<!-- Maven defines by convention the main repository but it's possible to add some other here -->
 	<repositories>
+		<!-- The CloudFoundry library used in the project is not already replicated on the central Maven repository. This block add the public milestone repository 
+			of Spring Source which contains this artifact -->
 		<repository>
 			<id>org.springframework.maven.milestone</id>
 			<name>Spring Maven Milestone Repository</name>
@@ -19,73 +37,83 @@
 			</snapshots>
 		</repository>
 	</repositories>
+
+	<!-- The main project dependency reference -->
 	<dependencies>
+		<!-- Spring MVC 3.1 dependency, it will pull all Spring Framework by transitive dependencies -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
 			<version>3.1.0.RELEASE</version>
 		</dependency>
+		<!-- Spring transaction management, as it's optional, it's not in transitive dependencies of Spring MVC -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-tx</artifactId>
 			<version>3.1.0.RELEASE</version>
 		</dependency>
+		<!-- Spring Data JPA 1.0 -->
 		<dependency>
 			<groupId>org.springframework.data</groupId>
 			<artifactId>spring-data-jpa</artifactId>
 			<version>1.0.1.RELEASE</version>
 		</dependency>
+		<!-- Spring Security 3.1 Web, as for Spring MVC, this artifact will pull Spring Security core -->
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-web</artifactId>
 			<version>3.1.0.RELEASE</version>
 		</dependency>
+		<!-- Spring Security configuration, this is an optional feature and needs to be declared explicitly -->
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-config</artifactId>
 			<version>3.1.0.RELEASE</version>
 		</dependency>
+		<!-- Jackson JSON marshaller. Just by adding this dependecy, Spring MVC will be able to handle JSON request when HTTP header are asking for -->
 		<dependency>
 			<groupId>org.codehaus.jackson</groupId>
 			<artifactId>jackson-jaxrs</artifactId>
 			<version>1.8.0</version>
 		</dependency>
+		<!-- Hibernate 4.0 most common ORM framework and JPA 2 implementation -->
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-entitymanager</artifactId>
 			<version>4.0.1.Final</version>
 		</dependency>
+		<!-- MySQL driver 5.1 to be able to communicate with MySQL databases -->
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<version>5.1.16</version>
 		</dependency>
+		<!-- C3P0 is a very good database connection pool manager -->
 		<dependency>
 			<groupId>c3p0</groupId>
 			<artifactId>c3p0</artifactId>
 			<version>0.9.1.2</version>
 		</dependency>
+		<!-- Cloud Foundry runtime which able application to user CloudFoudry very easily -->
 		<dependency>
 			<groupId>org.cloudfoundry</groupId>
 			<artifactId>cloudfoundry-runtime</artifactId>
 			<version>0.8.1</version>
 		</dependency>
+		<!-- SLF4J is a common interface for logging and can be implemented with all common logging runtime. Here we load the log4j adapter and by relation, 
+			the API itself -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-log4j12</artifactId>
 			<version>1.6.1</version>
 		</dependency>
+		<!-- Official Servlet API 2.5 which is scoped runtime which means that this library is needed to compile but has not to be included in the generated 
+			package because it's "provided" by the runtime environment -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>servlet-api</artifactId>
 			<version>2.5</version>
 			<scope>runtime</scope>
-		</dependency>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>3.8.1</version>
-			<scope>test</scope>
 		</dependency>
 	</dependencies>
 </project>
