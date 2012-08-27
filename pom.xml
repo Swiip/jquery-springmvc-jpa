@@ -107,13 +107,13 @@
 			<artifactId>slf4j-log4j12</artifactId>
 			<version>1.6.1</version>
 		</dependency>
-		<!-- Official Servlet API 2.5 which is scoped runtime which means that this library is needed to compile but has not to be included in the generated 
+		<!-- Official Servlet API 2.5 which is scoped provided which means that this library is needed to compile but has not to be included in the generated 
 			package because it's "provided" by the runtime environment -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>servlet-api</artifactId>
 			<version>2.5</version>
-			<scope>runtime</scope>
+			<scope>provided</scope>
 		</dependency>
 	</dependencies>
 </project>

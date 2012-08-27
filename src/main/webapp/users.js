@@ -60,9 +60,12 @@ define([ "jquery", "underscore", "text!grid.html", "text!select.html", "jqgrid" 
                     editoptions : {
                         dataUrl : "rest/skill/all",
                         buildSelect : function(data) {
-                            return _.template(select, {
+                            var selectContent = _.template(select, {
                                 list : JSON.parse(data)
                             });
+                            
+                            
+                            return selectContent; 
                         },
                         dataInit : function(element) {
                             var selectedRow = $("#grid-users").jqGrid("getGridParam", "selrow");
