@@ -3,6 +3,7 @@ package com.developpez.skillbrowser.repository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.rest.repository.annotation.RestResource;
 
 import com.developpez.skillbrowser.model.Skill;
 import com.developpez.skillbrowser.model.User;
@@ -14,6 +15,7 @@ import com.developpez.skillbrowser.model.User;
  * This interface aims to be automatically implemented by Spring Data JPA:
  * <link>http://static.springsource.org/spring-data/data-jpa/docs/current/reference/html/#repositories.create-instances</link>
  */
+@RestResource(path = "skill")
 public interface SkillRepository extends JpaRepository<Skill, Integer> {
 
     /**

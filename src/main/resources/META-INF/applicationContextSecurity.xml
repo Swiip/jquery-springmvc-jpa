@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- This is the big "beans" tag declaration with all Spring namespaces used. As we use a lot of convenient notations, we use a lot of namespaces... -->
+<beans:beans xmlns="http://www.springframework.org/schema/security" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+  xmlns:context="http://www.springframework.org/schema/context" xmlns:beans="http://www.springframework.org/schema/beans"
+  xsi:schemaLocation="
+		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd">
+
+  <!-- Spring Security special HTTP filter authorization on the login command -->
+  <http security="none" pattern="/rest/login" />
+
+  <!-- Spring Security entry point which only send an HTTP 403 Forbidden in case of bad authentication. This has to be explicitely defined because the 
+    default handling is now to forward on an automatically generated login page which is not what we want for an Ajax login -->
+  <beans:bean id="http403ForbiddenEntryPoint" class="org.springframework.security.web.authentication.Http403ForbiddenEntryPoint" />
+
+  <!-- Spring Security main HTTP filter -->
+  <http entry-point-ref="http403ForbiddenEntryPoint">
+    <!-- The filter is mapped on every request in /rest/** and require a "ROLE_USER" profile -->
+    <intercept-url pattern="/rest/**" access="ROLE_USER" />
+    <!-- Remember me mechanism trigger -->
+    <remember-me />
+  </http>
+
+  <!-- Spring Security authentication manager, an alias is created to inject it into the LoginController -->
+  <authentication-manager alias="authenticationManager">
+    <!-- The application user service is used as the Spring Security authentication provider -->
+    <authentication-provider user-service-ref="userServiceImpl" />
+  </authentication-manager>
+
+</beans:beans>

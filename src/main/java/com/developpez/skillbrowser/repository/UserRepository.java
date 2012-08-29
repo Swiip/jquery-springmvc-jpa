@@ -1,6 +1,7 @@
 package com.developpez.skillbrowser.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.rest.repository.annotation.RestResource;
 
 import com.developpez.skillbrowser.model.User;
 
@@ -11,6 +12,7 @@ import com.developpez.skillbrowser.model.User;
  * This interface aims to be automatically implemented by Spring Data JPA:
  * <link>http://static.springsource.org/spring-data/data-jpa/docs/current/reference/html/#repositories.create-instances</link>
  */
+@RestResource(exported = true, path = "user")
 public interface UserRepository extends JpaRepository<User, Integer> {
     
     /**

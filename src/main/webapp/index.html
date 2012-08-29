@@ -1,79 +1,33 @@
-<!-- The simple, new, and only HTML 5 doctype you need to know -->
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
 <head>
-<title>Skill Browser</title>
-
-<!-- CSS works with frameworks too now. This app is an example for that too. This main.css file is the only specific style sheet needed for this
-    application and it handle only few adjustments -->
-<link rel="stylesheet" type="text/css" media="screen" href="main.css" />
-<!-- 960 grid system is a light and easy to use CSS framework which provides main web site positioning based on a width of 960 pixels divided in 12
-    columns (http://960.gs) -->
-<link rel="stylesheet" type="text/css" media="screen" href="libs/themes/960.css" />
-<!-- jQuery UI works with a complete UI theme framework which is able to skin all its component, it's also possible to use the same classes in
-    specific content in order to use the theming feature for all the web site (http://jqueryui.com/docs/Theming). -->
-<!-- The jQuery UI theme chosen here is a default one but the themeroller widget is included to the page in order to allow user to switch with all
-    predefined themes -->
-<link rel="stylesheet" type="text/css" media="screen" href="libs/themes/smoothness/jquery-ui-1.8.17.custom.css" />
-<!-- jqGrid jQuery Grid plugin is designed to work with jQuery UI theming but need an addition stylesheet to work -->
-<link rel="stylesheet" type="text/css" media="screen" href="libs/themes/ui.jqgrid.css" />
-
-<!-- Putting all scripts files in the header is become impossible with new complex web interfaces, there is too much files and this files requires a
-    proper load order which is not insured by all browser. For more justifications, refer to this URL: http://requirejs.org/docs/why.html -->
-<!-- We use the most popular JavaScript file and module loader RequireJS (http://requirejs.org/) to handle all JavaScript file inclusions. This
-    notation will load RequireJS library itself and will trigger loading of the application "bootstrap" file main.js by the attribute "data-main".
-    "main" value for the attribute is a module name from RequireJS notation which will be transform in a file name by require standard mechanism -->
-<script data-main="main" src="libs/require-1.0.5.js"></script>
-
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<title>Backbone.js + RequireJS • TodoMVC</title>
+	<link rel="stylesheet" href="../../assets/base.css">
+	<script src="../../assets/base.js"></script>
+	<script data-main="js/main" src="js/lib/require/require.js"></script>
+	<!--[if IE]>
+	<script src="../../assets/ie.js"></script>
+	<![endif]-->
 </head>
 <body>
-
-    <!-- This block is the login form and it starts hidden (diplay: none). It will be shown by jQuery UI dialog feature when needed. -->
-    <!-- It's should be possible to add form content with a dynamic template but there is a reason if the content is in the main static HTML file.
-        Even if it's hidden, the browser will detect the form login and will be able to save you authentication for the next time. A completely
-        dynamic login form would break this useful browser feature -->
-    <div class="grid_6 div-login" style="display: none;">
-        <form>
-            <table style="margin: 5px;">
-                <tr>
-                    <td width="50%" style="text-align: right;">Login :</td>
-                    <td width="50%"><input type='text' name='j_username' class="ui-corner-all j_username" /></td>
-                </tr>
-                <tr>
-                    <td style="text-align: right;">Mot de passe :</td>
-                    <td><input class="ui-corner-all j_password" type='password' name='j_password'></td>
-                </tr>
-                <tr>
-                    <td style="text-align: right;">Se souvenir de moi :</td>
-                    <td><input type="checkbox" name="_spring_security_remember_me"></td>
-                </tr>
-            </table>
-        </form>
-    </div>
-
-    <!-- This is a simple anchor to dynamically add the jQuery UI themeswitcher (http://jqueryui.com/docs/Theming/ThemeSwitcher) -->
-    <div id="switcher"></div>
-
-    <!-- Main web site container positioned with 960 gs classes -->
-    <div class="container_12">
-
-        <!-- Main title styled -->
-        <div class="grid_12 ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix">
-            <h1>Skill Browser</h1>
-        </div>
-
-        <!-- Button bar used as menu planned to be enhanced by jQuery UI component -->
-        <div class="grid_12 menu">
-            <button class="users">Users</button>
-            <button class="skills">Skills</button>
-        </div>
-
-        <!-- Content div anchor -->
-        <div class="grid_12 content">
-            <p>Hello World!</p>
-        </div>
-
-    </div>
-
+	<section id="todoapp">
+		<header id="header">
+			<h1>todos</h1>
+			<input id="new-todo" placeholder="What needs to be done?" autofocus>
+		</header>
+		<section id="main">
+			<input id="toggle-all" type="checkbox">
+			<label for="toggle-all">Mark all as complete</label>
+			<ul id="todo-list"></ul>
+		</section>
+		<footer id="footer"></footer>
+	</section>
+	<footer id="info">
+		<p>Double-click to edit a todo</p>
+		<p>Written by <a href="http://addyosmani.github.com/todomvc/">Addy Osmani</a></p>
+		<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
+	</footer>
 </body>
 </html>

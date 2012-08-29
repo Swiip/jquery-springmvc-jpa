@@ -13,8 +13,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
-import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+import org.springframework.data.rest.repository.annotation.RestResource;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -52,6 +52,7 @@ public class User implements UserDetails {
     /**
      * Password of the user. No annotation here, the parameter will be automatically mapped in the table.
      */
+    @RestResource(exported = false)
     private String password;
 
     /**
@@ -109,7 +110,6 @@ public class User implements UserDetails {
      * Get password. Implements UserDetails.getPassword(). <br/>
      * "@JsonIgnore" will remove password value when performing the JSON serialization in order to not sending all passwords to everyone!
      */
-    @JsonIgnore
     public String getPassword() {
         return password;
     }

@@ -8,7 +8,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.developpez.skillbrowser.model.User;
 import com.developpez.skillbrowser.repository.UserRepository;
@@ -25,7 +24,7 @@ import com.developpez.skillbrowser.service.UserService;
  * @see com.developpez.skillbrowser.service.UserService
  */
 @Service
-@Transactional
+//@Transactional
 public class UserServiceImpl implements UserService, UserDetailsService, InitializingBean {
 
     /**
