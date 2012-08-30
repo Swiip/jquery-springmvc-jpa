@@ -1,9 +1,7 @@
 define([
 	'jquery',
-	'backbone',
-	'collections/todos',
-	'common'
-], function( $, Backbone, Todos, Common ) {
+	'backbone'
+], function( $, Backbone ) {
 
 	var Workspace = Backbone.Router.extend({
 		routes:{
@@ -12,11 +10,11 @@ define([
 
 		setFilter: function( param ) {
 			// Set the current filter to be used
-			Common.TodoFilter = param.trim() || '';
+			//Common.TodoFilter = param.trim() || '';
 
 			// Trigger a collection filter event, causing hiding/unhiding
 			// of the Todo view items
-			Todos.trigger('filter');
+			//Todos.trigger('filter');
 		}
 	});
 
