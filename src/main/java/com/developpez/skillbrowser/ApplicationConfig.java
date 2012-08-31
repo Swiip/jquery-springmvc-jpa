@@ -17,12 +17,14 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 @Configuration
 @ComponentScan(basePackageClasses = ApplicationConfig.class, excludeFilters = @ComponentScan.Filter(type = FilterType.ANNOTATION, value = Controller.class))
 @ImportResource(value = { "classpath:META-INF/applicationContextSecurity.xml" })
 @EnableJpaRepositories
 @EnableTransactionManagement
+@EnableWebMvc
 public class ApplicationConfig {
   @Bean
   public DataSource dataSource() {

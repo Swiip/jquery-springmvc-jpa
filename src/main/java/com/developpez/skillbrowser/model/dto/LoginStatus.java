@@ -5,50 +5,70 @@ package com.developpez.skillbrowser.model.dto;
  */
 public class LoginStatus {
 
-    /**
-     * Boolean logged in current status
-     */
-    private boolean loggedIn;
+  /**
+   * Boolean logged in current status
+   */
+  private boolean loggedIn;
 
-    /**
-     * Username (or login) currently logged in (or null if not logged in)
-     */
-    private String username;
+  /**
+   * Username (or login) currently logged in (or null if not logged in)
+   */
+  private String username;
 
-    /**
-     * Is logged in
-     * 
-     * @return loggedIn
-     */
-    public boolean isLoggedIn() {
-        return loggedIn;
-    }
+  private String password;
 
-    /**
-     * Set logged in
-     * 
-     * @param loggedIn
-     */
-    public void setLoggedIn(boolean loggedIn) {
-        this.loggedIn = loggedIn;
-    }
+  private Boolean rememberMe;
 
-    /**
-     * Get username (or login)
-     * 
-     * @return username
-     */
-    public String getUsername() {
-        return username;
-    }
+  /**
+   * Is logged in
+   * 
+   * @return loggedIn
+   */
+  public boolean isLoggedIn() {
+    return loggedIn;
+  }
 
-    /**
-     * Set username (or login)
-     * 
-     * @param username
-     */
-    public void setUsername(String username) {
-        this.username = username;
-    }
+  /**
+   * Set logged in
+   * 
+   * @param loggedIn
+   */
+  public void setLoggedIn(boolean loggedIn) {
+    this.loggedIn = loggedIn;
+  }
+
+  /**
+   * Get username (or login)
+   * 
+   * @return username
+   */
+  public String getUsername() {
+    return username;
+  }
+
+  /**
+   * Set username (or login)
+   * 
+   * @param username
+   */
+  public void setUsername(String username) {
+    this.username = username;
+  }
+
+  public String getPassword() {
+    return password;
+  }
+
+  public void setPassword(String password) {
+    this.password = password;
+  }
+
+  public Boolean getRememberMe() {
+    return rememberMe;
+  }
+
+  public void setRememberMe(Boolean rememberMe) {
+    this.rememberMe = rememberMe;
+  }
 
 }

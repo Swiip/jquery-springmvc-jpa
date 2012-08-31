@@ -1,69 +1,75 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <title>Skill Browser</title>
-  <link href="libs/bootstrap-2.1.0/css/bootstrap.min.css" rel="stylesheet" />
-  <script data-main="app/main" src="libs/require-2.0.6/require.js"></script>
+<title>Skill Browser</title>
+<link href="libs/bootstrap-2.1.0/css/bootstrap.min.css" rel="stylesheet" />
+<script data-main="app/main" src="libs/require-2.0.6/require.js"></script>
 </head>
 <body>
-	<div class="navbar navbar-inverse navbar-static-top">
-		<div class="navbar-inner">
-    	<a class="brand" href="#">Skill Browser</a>
-    	<ul class="nav">
-      	<li><a href="#" class="users">Users</a></li>
-      	<li><a href="#" class="skills">Skills</a></li>
-    	</ul>
+  <div class="navbar navbar-inverse navbar-static-top">
+    <div class="navbar-inner">
+      <a class="brand" href="#">Skill Browser</a>
+      <ul class="nav">
+        <li><a href="#" class="users">Users</a></li>
+        <li><a href="#" class="skills">Skills</a></li>
+      </ul>
+      <ul class="nav pull-right">
+        <li><a href="#" class="logout">Logout</a></li>
+      </ul>
     </div>
   </div>
 
 
-    <!-- This block is the login form and it starts hidden (diplay: none). It will be shown by jQuery UI dialog feature when needed. -->
-    <!-- It's should be possible to add form content with a dynamic template but there is a reason if the content is in the main static HTML file.
+  <!-- This block is the login form and it starts hidden (diplay: none). It will be shown by jQuery UI dialog feature when needed. -->
+  <!-- It's should be possible to add form content with a dynamic template but there is a reason if the content is in the main static HTML file.
         Even if it's hidden, the browser will detect the form login and will be able to save you authentication for the next time. A completely
         dynamic login form would break this useful browser feature -->
-	<div class="modal hide fade login" style="display: none;">
-		<div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-			<h3>Login</h3>
-		</div>
-		<div class="modal-body">
-        <form>
-            <table style="margin: 5px;">
-                <tr>
-                    <td width="50%" style="text-align: right;">Login :</td>
-                    <td width="50%"><input type='text' name='j_username' class="ui-corner-all j_username" /></td>
-                </tr>
-                <tr>
-                    <td style="text-align: right;">Mot de passe :</td>
-                    <td><input class="ui-corner-all j_password" type='password' name='j_password'></td>
-                </tr>
-                <tr>
-                    <td style="text-align: right;">Se souvenir de moi :</td>
-                    <td><input type="checkbox" name="_spring_security_remember_me"></td>
-                </tr>
-            </table>
-        </form>
+  <div class="modal hide fade login" style="display: none;">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+      <h3>Login</h3>
+    </div>
+    <div class="modal-body">
+      <form class="form-horizontal">
+        <div class="control-group">
+          <label class="control-label" for="username">Login</label>
+          <div class="controls">
+            <input type="text" id="username" placeholder="Login">
+          </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label" for="password">Password</label>
+          <div class="controls">
+            <input type="password" id="password" placeholder="Password">
+          </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label" for="rememberMe">Remember me</label>
+          <div class="controls">
+            <input type="checkbox" id="rememberMe" />
+          </div>
+        </div>
+      </form>
     </div>
     <div class="modal-footer">
-    	<a href="#" class="btn">Cancel</a>
-    	<a href="#" class="btn btn-primary">Login</a>
-  	</div>
+      <a href="#" class="btn">Cancel</a> <a href="#" class="btn btn-primary">Login</a>
+    </div>
   </div>
 
-	<!-- Main web site container positioned with 960 gs classes -->
+  <!-- Main web site container positioned with 960 gs classes -->
   <div class="container">
-	  <div class="row">
+    <div class="row">
 
-			<!-- Main title styled -->
-	    <div class="span12 ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix">
-				<h1>Skill Browser</h1>
-			</div>
+      <!-- Main title styled -->
+      <div class="span12 ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix">
+        <h1>Skill Browser</h1>
+      </div>
 
-	    <!-- Content div anchor -->
-	    <div class="span12 content">
-	      <p>Hello World!</p>
-	    </div>
-	  </div>
-	</div>
+      <!-- Content div anchor -->
+      <div class="span12 content">
+        <p>Hello World!</p>
+      </div>
+    </div>
+  </div>
 </body>
 </html>

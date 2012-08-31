@@ -1,8 +1,9 @@
 define([
   'bootstrap',
   'underscore',
-  'backbone'
-], function( $, _, Backbone ) {
+  'backbone',
+  'models/login'
+], function( $, _, Backbone, LoginStatus ) {
 
   var LoginView = Backbone.View.extend({
     el: 'div.modal.login',
@@ -10,27 +11,39 @@ define([
       'click .modal-footer .btn:not(.btn-primary)':  'cancel',
       'click .modal-footer .btn.btn-primary':  'ok'
     },
-    initialize: function() {
-      this.status = null;
-      $.ajax({
-        url : "rest/login",
-        method : "GET",
-        success : $.proxy(this.result, this)
-      });
+    initialize: function(callback) {
+      this.callback = null;
+      $("a.logout").click(this.logout);
+      LoginStatus.on('change:loggedIn', this.loggedInChange, this);
+      LoginStatus.fetch();
     },
-    result: function() {
-      if (status.loggedIn) {
-        this.status = status;
+    loggedInChange: function() {
+      if (LoginStatus.get('loggedIn')) {
         this.$el.modal('hide');
+        if (this.callback) {
+          this.callback();
+        }
       } else {
+        this.$("form input").val(null);
         this.$el.modal('show');
       }
     },
     ok: function() {
-      alert("todo");
+      LoginStatus.set({
+        username: this.$("#username").val(),
+        password: this.$("#password").val(),
+        rememberMe: this.$("#rememberMe:checked").length > 0,
+      });
+      LoginStatus.save();
     },
     cancel: function() {
-      this.$el.modal("hide");
+      this.$el.modal('hide');
+    },
+    logout: function() {
+      LoginStatus.destroy();
+      LoginStatus.set({
+        loggedIn: false
+      });
     }
   });
 
