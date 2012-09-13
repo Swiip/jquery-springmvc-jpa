@@ -12,7 +12,7 @@ define([
       'click .modal-footer .btn.btn-primary':  'ok'
     },
     initialize: function(callback) {
-      this.callback = null;
+      this.callback = callback;
       $("a.logout").click(this.logout);
       LoginStatus.on('change:loggedIn', this.loggedInChange, this);
       LoginStatus.fetch();

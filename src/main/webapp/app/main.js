@@ -38,5 +38,10 @@ require([
 	Backbone.history.start();
 
 	// Initialize the application view
-	new LoginView();
+	new LoginView(function() {
+	  require(['views/users', 'views/skills'], function( UsersView, SkillsView ) {
+	    new UsersView();
+	    new SkillsView();
+	  });
+	});
 });
