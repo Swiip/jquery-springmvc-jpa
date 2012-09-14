@@ -1,6 +1,31 @@
-<div class="view">
-	<input class="toggle" type="checkbox" <%= completed ? 'checked' : '' %>>
-	<label><%- title %></label>
-	<button class="destroy"></button>
+<table class="table table-striped table-bordered">
+  <thead>
+    <tr>
+      <th>Login</th>
+      <th>Full Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% data.each(function(user) { %>
+      <tr> 
+        <td><%= user.get( 'login' ) %></td>
+        <td><%= user.get( 'fullname' ) %></td>
+      </tr>
+    <% }) %>
+  </tbody>
+</table>
+<div class="pagination pagination-right">
+  <ul>
+    <li class="<%= data.currentPage == 1 ? 'disabled' : '' %>">
+      <a href="#users/<%= data.currentPage == 1 ? 1 : data.currentPage - 1 %>">&lt;</a>
+    </li>
+    <% for( var i = 1; i < data.totalPages + 1; i++ ) { %>
+      <li class="<%= data.currentPage == i ? 'active' : '' %>">
+        <a href="#users/<%= i %>"><%= i %></a>
+      </li>    
+    <% } %>
+    <li class="<%= data.currentPage == data.totalPages ? 'disabled' : '' %>">
+      <a href="#users/<%= data.currentPage == data.totalPages ? data.totalPages : data.currentPage + 1 %>">&gt;</a>
+    </li>
+  </ul>
 </div>
-<input class="edit" value="<%- title %>">

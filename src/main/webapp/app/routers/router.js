@@ -1,22 +1,35 @@
 define([
 	'jquery',
-	'backbone'
-], function( $, Backbone ) {
+	'backbone',
+	'collections/users',
+	'views/users',
+	'views/skills'
+], function($, Backbone, UsersCollection, UsersView, SkillsView) {
 
-	var Workspace = Backbone.Router.extend({
-		routes:{
-			'*filter': 'setFilter'
-		},
+  var Workspace = Backbone.Router.extend({
+    routes : {
+      'users' : 'users',
+      'users/:page' : 'users',
+      'skills' : 'skills'
+    },
+    
+    initialize: function() {
+      this.usersView = null;
+      this.skillsView = null;
+    },
 
-		setFilter: function( param ) {
-			// Set the current filter to be used
-			//Common.TodoFilter = param.trim() || '';
+    users : function( param ) {
+      console.log("router users ", param);
+      if( !this.usersView ) {
+        this.usersView = new UsersView();
+      }
+      if( !param ) {
+        param = 1;
+      }
+      UsersCollection.page = param;
+      UsersCollection.fetchPage();
+    }
+  });
 
-			// Trigger a collection filter event, causing hiding/unhiding
-			// of the Todo view items
-			//Todos.trigger('filter');
-		}
-	});
-
-	return Workspace;
+  return Workspace;
 });

@@ -88,6 +88,13 @@ public class UserServiceImpl implements UserService, UserDetailsService, Initial
             user.setLogin("admin");
             user.setPassword("admin");
             userRepository.save(user);
+            for(int i = 0; i < 26; i++) {
+              user = new User();
+              user.setFullname("full name " + i);
+              user.setLogin("login " + i);
+              user.setPassword("password" + i);
+              userRepository.save(user);
+            }
         }
     }
 

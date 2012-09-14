@@ -35,13 +35,9 @@ require([
 ], function( LoginView, Workspace ) {
 	// Initialize routing and start Backbone.history()
 	new Workspace();
-	Backbone.history.start();
-
+	
 	// Initialize the application view
 	new LoginView(function() {
-	  require(['views/users', 'views/skills'], function( UsersView, SkillsView ) {
-	    new UsersView();
-	    new SkillsView();
-	  });
+	  Backbone.history.start();
 	});
 });

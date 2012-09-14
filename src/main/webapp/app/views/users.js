@@ -13,12 +13,16 @@ define([
     events: {
     },
     initialize: function() {
-      console.log("init");
-      UsersCollection.fetch();
+      console.log( 'UsersView.initialize' );
+      this.model.on( 'reset', this.render, this );
+      this.model.on( 'all' , function(event) {
+        console.log("all event", event);
+      });
+      this.model.fetchPage();
     },
     render: function() {
-      console.log("coucou");
-      $(".content").html( this.template( UsersTemplate ) );
+      console.log("UsersView.render");
+      $( '.content' ).html( this.template( { data : this.model } ) );
     }
   });
 
