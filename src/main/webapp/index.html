@@ -5,7 +5,7 @@
 <link href="libs/bootstrap-2.1.0/css/bootstrap.min.css" rel="stylesheet" />
 <script data-main="app/main" src="libs/require-2.0.6/require.js"></script>
 </head>
-<body>
+<body ng-app>
   <div class="navbar navbar-inverse navbar-static-top">
     <div class="navbar-inner">
       <a class="brand" href="#">Skill Browser</a>
@@ -66,7 +66,7 @@
       </div>
 
       <!-- Content div anchor -->
-      <div class="span12 content">
+      <div class="span12 content" ng-view>
         <p>Hello World!</p>
       </div>
     </div>

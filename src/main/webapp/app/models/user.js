@@ -1,13 +1,13 @@
 define([
   'underscore',
-  'backbone'
-], function( _, Backbone ) {
+  'backbone',
+  'collections/Hateoas',
+], function(_, Backbone, Hateoas) {
+  
+  var User = Hateoas.Model.extend({
 
-  var User = Backbone.Model.extend({
-    //url: 'data-rest/users'
   });
 
-  //return new User();
   return User;
-  
+
 });

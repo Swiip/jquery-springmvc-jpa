@@ -3,6 +3,7 @@
     <tr>
       <th>Login</th>
       <th>Full Name</th>
+      <th>Skills</th>
     </tr>
   </thead>
   <tbody>
@@ -10,6 +11,7 @@
       <tr> 
         <td><%= user.get( 'login' ) %></td>
         <td><%= user.get( 'fullname' ) %></td>
+        <td data-anchor="<%= user.get( 'login' ) %>"></td>
       </tr>
     <% }) %>
   </tbody>
