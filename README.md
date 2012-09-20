@@ -1,30 +1,31 @@
-# Tutorial JPA 2, Spring 3.1, jQuery 1.7
+# Template JPA 2, Spring 3.1, Backbone JS 0.9
 
-This project aims to be the support for a tutorial written in french for the website <http://www.developpez.com/>.
-I will add the link to the tutorial page when it will be available.
+This project aims to be the cleanest and most up to date way to build Web UI on a Java-based server.
 
-But this project has also the goal of being the cleanest way to build a simple Java Web application with the most up to date technologies.
+Of course, this implies lots of framework and architecture choices which are mine and can be discussed.
+
+This repo is in constant evolution but you can find in branches the major architectures switch. At this time, there is one old branche which is jQuery UI that I replaced by BackboneJS (I know that the two technologies are not the same but I still replaced on by the other).
 
 My goal is to fully comment the code and the Git repository to explain how the different technologies are integrated.
 
 ## Chosen technologies
 
-As described in the main title, the major technologies are [JPA 2][], [Spring][Spring Framework] 3.1 and [jQuery] 1.7 but this is the complete list of architecture choices:
+As described in the main title, the major technologies are [JPA 2][], [Spring][Spring Framework] 3.1 and Backbone JS 0.9 but this is the complete list of architecture choices:
 
 ### Java frameworks
 - [Hibernate] 4.0 _as JPA 2 implementation_ 
 - [JPA 2] _as persistence API_
-- [Spring Data JPA] _as DAO layer implementation_
-- [Spring Framework] 3.1 _as main IoC container_
-- [Spring MVC] 3.1 _as web framework_
-- [Jackson] 1.8 _as JSON marshaller_
+- [Spring Data JPA] 1.1 _as DAO layer implementation_
+- [Spring Framework] 3.2 _as main IoC container_
+- [Spring MVC] 3.2 _as web framework_
+- Spring Data Rest 3.2 _as REST exporter_
 - [Spring Security] 3.1 _as security framework_
 
 ### JavaScript frameworks
-- [RequireJS] 1.0 _as JavaScript file and module loader_
-- [jQuery] 1.7 _as main JavaScript framework_
-- [jQuery UI] 1.8 _as main Web UI framework_
-- [jqGrid] 4.3 _as jQuery DataGrid plugin_
+- [RequireJS] 2.0 _as JavaScript file and module loader_
+- [jQuery] 1.8 _as main JavaScript framework_
+- BackboneJS 0.9 _as Web UI structure_
+- Twitter Bootstrap _as front-end framework_
 
 ### Design patterns and guide lines
 - [Single-page application] (even for the login)
@@ -44,14 +45,9 @@ But to be able to test the application without deploy on CloudFoundry every time
 In the project you will find [applicationContext-ds.xml](blob/master/src/main/resources/META-INF/applicationContext-ds.xml) which contains the two data sources with a different profile and
 [CloudApplicationContextInitializer.java](blob/master/src/main/java/org/cloudfoundry/services/CloudApplicationContextInitializer.java) class which automatically activate the right profile.
 
-### Standard Spring configuration with JPA, transaction and annotation config
+### No XML Spring configuration
 
-The main Spring configuration file [applicationContext.xml](blob/master/src/main/resources/META-INF/applicationContext.xml) uses
-"context" namespace to declare Spring component scanning and annotation configuration,
-"tx" namespace to declare automatic transaction handling and finally
-declare a "entityManagerFactory" bean to integrate JPA 2.
-
-This files contains also Spring Data Jpa and Spring Security configuration which will be described bellow.
+TODO
 
 ### Spring Data JPA configuration
 
@@ -60,14 +56,14 @@ As you can see, only the root package for repository interfaces is needed.
 
 The Spring Data JPA implement standard JpaRepository interface methods and the specifics defined in the interface. 
 
-### Spring MVC, Jackson and RESTful
+### Spring MVC, Spring Data Rest
 
 Spring MVC is used in very standard way. The DispatcherServlet is declared in the [web.xml](blob/master/src/main/webapp/WEB-INF/web.xml).
 It will load the [spring-servlet.xml](blob/master/src/main/webapp/WEB-INF/spring-servlet.xml) Spring MVC configuration file which declare component scan and annotation configuration for @Controller annotated classes.
 
-The JSON marshalling is automatically triggered by the Jackson dependency in the [pom.xml](blob/master/pom.xml).
-
 The RESTful mapping works with Spring MVC's annotations @RequestMapping with path value and RequestMethod settings like in the [UserController.java](blob/master/src/main/java/com/developpez/skillbrowser/controller/UserController.java).
+
+TODO
 
 ### Single page application even for login
 
@@ -91,22 +87,13 @@ It structure the code with modules, handles JavaScript files loading and depende
 [RequireJS][] is the implementation used to do this. The application's JavaScript bootstrap start in the [index.html](blob/master/src/main/webapp/index.html) with the require.js script and a "data-main" attribute which target the [main.js](blob/master/src/main/webapp/main.js) root script.
 This root script configure [RequireJS][], define some dependencies and bootstrap the application including the login module.
 
-### jqGrid RESTful mapping with Spring Data JPA Web pagination
+### Backbone JS Web UI structure
 
-[jqGrid][] is a very complete data grid component for jQuery UI. It include the handling of exchanges with the server to read and write data with the server.
-The default configuration is not the cleanest way I could hope for but it is highly configurable and it's possible to obtain a pretty clean result.
+TODO
 
-The file [jqgrid.conf.js](blob/master/src/main/webapp/jqgrid.conf.js) contains all jqGrid parameters for the application to convert with the full RESTful server.
-For more details, I tried to fully explain the parameters in the file but to sum up, we could notice the method types GET, PUT and DELETE for distinguished operations, the content type "application/json" and the overriding of serialization method to post JSON data instead of form encoded data.
+### Backbone JS Hateoas models
 
-I will just focus on the read serialization which use "page.*" form parameters. It aims to be compatible with the built in Spring Data JPA [Web Pagination](http://static.springsource.org/spring-data/data-jpa/docs/current/reference/html/#web-pagination).
-With this mapping, the Spring MVC configuration [spring-servlet.xml](blob/master/src/main/webapp/WEB-INF/spring-servlet.xml) argument resolver will match and automatically be parsed in the Pageable argument of [UserController.java](blob/master/src/main/java/com/developpez/skillbrowser/controller/UserController.java).
-
-In this way, the data grid is fully linked with a RESTful API and the data grid pagination is natively linked with the data base request framework.
-
-
-
-
+TODO
 
 
 

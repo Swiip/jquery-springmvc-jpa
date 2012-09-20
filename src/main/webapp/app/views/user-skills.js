@@ -13,6 +13,11 @@ define([
       console.log( 'UserSkillsView.initialize', this.model );
       this.model.fetch();
       this.model.on( 'change', this.render, this );
+      this.model.on( 'reset', function() {
+        this.model.each(function( user ) {
+          user.fetch();
+        });
+      }, this);
       //this.model.on( 'all' , function(event) {
       //  console.log("all event", event);
       //});

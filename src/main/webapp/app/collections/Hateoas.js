@@ -1,6 +1,6 @@
 define([
-	'underscore',
-	'backbone',
+  'underscore',
+  'backbone',
 ], function(_, Backbone, HateoasModel) {
 
   var Hateoas = {
@@ -17,7 +17,6 @@ define([
             if(!Hateoas.reference[link.href]) {
               var collection = new Hateoas.Collection();
               collection.url = link.href;
-              //collection.fetch();
               Hateoas.reference[link.href] = collection;
             }
             data[link.rel] = Hateoas.reference[link.href];
@@ -38,7 +37,6 @@ define([
           if(!Hateoas.reference[link.href]) {
             var model = new Hateoas.Model();
             model.url = link.href;
-            model.fetch();
             Hateoas.reference[link.href] = model;
           }
           data.push(Hateoas.reference[link.href]);
