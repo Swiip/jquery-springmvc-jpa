@@ -55,7 +55,8 @@ define([
       this.currentPage = 0;
       this.page = 1;
       this.limit = 10;
-      this.sort = {};
+      this.sort = null;
+      this.dir = null;
     },
     parse: function(data) {
       this.totalCount = data.totalCount;
@@ -64,11 +65,14 @@ define([
       return data.results;
     },
     fetchPage: function() {
+      var data = {
+        page : this.page,
+        limit : this.limit,
+        sort : this.sort,
+      }
+      data[this.sort + '.dir'] = this.dir;
       this.fetch({
-        data : {
-          page : this.page,
-          limit : this.limit
-        }
+        data: data
       });
     }
   });

@@ -10,6 +10,7 @@ define([
     routes : {
       'users' : 'users',
       'users/:page' : 'users',
+      'users/:page/:sort/:dir' : 'users',
       'skills' : 'skills'
     },
     
@@ -18,15 +19,17 @@ define([
       this.skillsView = null;
     },
 
-    users : function( param ) {
-      console.log("router users ", param);
+    users : function( page, sort, dir ) {
+      console.log("router users ", page, sort, dir);
       if( !this.usersView ) {
         this.usersView = new UsersView();
       }
-      if( !param ) {
-        param = 1;
+      if( !page ) {
+        page = 1;
       }
-      UsersCollection.page = param;
+      UsersCollection.page = page;
+      UsersCollection.sort = sort;
+      UsersCollection.dir = dir;
       UsersCollection.fetchPage();
     }
   });
