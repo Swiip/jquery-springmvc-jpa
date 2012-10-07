@@ -8,7 +8,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 @EnableWebMvc
 @Configuration
-@ComponentScan(basePackageClasses = WebApplicationConfig.class, includeFilters = @ComponentScan.Filter(type = FilterType.ANNOTATION, value = Controller.class))
+@ComponentScan(basePackageClasses = WebApplicationConfig.class, includeFilters = { @ComponentScan.Filter(type = FilterType.ANNOTATION, value = Controller.class) })
 public class WebApplicationConfig {
 
 }

@@ -10,29 +10,28 @@ import org.springframework.web.context.support.AnnotationConfigWebApplicationCon
 import org.springframework.web.servlet.DispatcherServlet;
 
 public class WebConfig implements WebApplicationInitializer {
+    @Override
+    public void onStartup(ServletContext container) {
+        // Create the 'root' Spring application context
+        AnnotationConfigWebApplicationContext applicationContext = new AnnotationConfigWebApplicationContext();
+        applicationContext.register(ApplicationConfig.class);
 
-  @Override
-  public void onStartup(ServletContext container) {
-    // Create the 'root' Spring application context
-    AnnotationConfigWebApplicationContext applicationContext = new AnnotationConfigWebApplicationContext();
-    applicationContext.register(ApplicationConfig.class);
+        // AnnotationConfigWebApplicationContext webApplicationContext = new AnnotationConfigWebApplicationContext();
+        // webApplicationContext.register(WebApplicationConfig.class);
 
-    // AnnotationConfigWebApplicationContext webApplicationContext = new AnnotationConfigWebApplicationContext();
-    // webApplicationContext.register(WebApplicationConfig.class);
+        // Manage the lifecycle of the root application context
+        container.addListener(new ContextLoaderListener(applicationContext));
 
-    // Manage the lifecycle of the root application context
-    container.addListener(new ContextLoaderListener(applicationContext));
+        // Register and map the dispatcher servlet
+        DispatcherServlet servletDispatcher = new DispatcherServlet(applicationContext);
+        ServletRegistration.Dynamic dispatcher = container.addServlet("dispatcher", servletDispatcher);
+        dispatcher.setLoadOnStartup(1);
+        dispatcher.addMapping("/rest/*");
 
-    // Register and map the dispatcher servlet
-    DispatcherServlet servletDispatcher = new DispatcherServlet(applicationContext);
-    ServletRegistration.Dynamic dispatcher = container.addServlet("dispatcher", servletDispatcher);
-    dispatcher.setLoadOnStartup(1);
-    dispatcher.addMapping("/rest/*");
-
-    DispatcherServlet servletExporter = new RepositoryRestExporterServlet();
-    ServletRegistration.Dynamic exporter = container.addServlet("exporter", servletExporter);
-    exporter.setLoadOnStartup(1);
-    exporter.addMapping("/data-rest/*");
-  }
+        DispatcherServlet servletExporter = new RepositoryRestExporterServlet();
+        ServletRegistration.Dynamic exporter = container.addServlet("exporter", servletExporter);
+        exporter.setLoadOnStartup(1);
+        exporter.addMapping("/data-rest/*");
+    }
 
 }
