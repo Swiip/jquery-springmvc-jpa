@@ -1,0 +1,50 @@
+<table class="table table-striped table-bordered">
+    <thead>
+    <tr>
+        <% _.each(columns, function(column) { %>
+        <th>
+            <% if(column.sort) { %>
+            <a href="<%= link %>/<%= collection.page + '/' + column.key + '/' + ( collection.sort == column.key && collection.dir == 'asc' ? 'desc' : 'asc' ) %>">
+                <% if(collection.sort == column.key) { %>
+                <i class="icon-chevron-<%= collection.dir == 'asc' ? 'down' : 'up' %>"/>
+                <% } %>
+                <% } %>
+                <%= column.title %>
+                <% if(column.sort) { %>
+            </a>
+            <% } %>
+        </th>
+        <% } ) %>
+    </tr>
+    </thead>
+    <tbody>
+    <% collection.each(function(model) { %>
+    <tr>
+        <% _.each(columns, function(column) { %>
+        <td
+        <%= column.anchor ? 'data-anchor="' + model.get( column.anchor ) + '"' : '' %>>
+        <%= column.key ? model.get( column.key ) : '' %>
+        </td>
+        <% } ) %>
+    </tr>
+    <% }) %>
+    </tbody>
+</table>
+<div class="pagination pagination-right">
+    <ul>
+        <li class="<%= collection.currentPage == 1 ? 'disabled' : '' %>">
+            <a href="<%= link %>/<%= collection.currentPage == 1 ? 1 : collection.currentPage - 1 %><%= collection.sort ? '/' + collection.sort + '/' + collection.dir : '' %>">
+                &lt;</a>
+        </li>
+        <% for( var i = 1; i < collection.totalPages + 1; i++ ) { %>
+        <li class="<%= collection.currentPage == i ? 'active' : '' %>">
+            <a href="<%= link %>/<%= i %><%= collection.sort ? '/' + collection.sort + '/' + collection.dir : '' %>"><%=
+                i %></a>
+        </li>
+        <% } %>
+        <li class="<%= collection.currentPage == collection.totalPages ? 'disabled' : '' %>">
+            <a href="<%= link %>/<%= collection.currentPage == collection.totalPages ? collection.totalPages : collection.currentPage + 1 %><%= collection.sort ? '/' + collection.sort + '/' + collection.dir : '' %>">
+                &gt;</a>
+        </li>
+    </ul>
+</div>
