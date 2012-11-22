@@ -1,21 +1,29 @@
+/**
+ * Define Require module with dependencies
+ */
 define([
   'underscore',
   'backbone'
-], function( _, Backbone ) {
-
+], function (_, Backbone) {
+  /**
+   * LoginStatus Model
+   */
   var LoginStatus = Backbone.Model.extend({
-    defaults: {
-      loggedIn: null,
-      username: '',
-      password: '',
-      rememberMe: false  
+    // Defining default values on a not connected anonymous user
+    defaults:{
+      loggedIn:null,
+      username:'',
+      password:'',
+      rememberMe:false
     },
-    isNew: function() {
+    // Shortcut method
+    isNew:function () {
       return false;
     },
-    url: 'rest/login'
+    // Url binding of the REST service
+    url:'rest/login'
   });
 
+  // Return the view as the Require module
   return new LoginStatus();
-  
 });

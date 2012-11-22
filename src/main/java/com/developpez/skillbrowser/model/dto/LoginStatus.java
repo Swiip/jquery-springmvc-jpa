@@ -21,7 +21,7 @@ public class LoginStatus {
 
   /**
    * Is logged in
-   * 
+   *
    * @return loggedIn
    */
   public boolean isLoggedIn() {
@@ -30,7 +30,7 @@ public class LoginStatus {
 
   /**
    * Set logged in
-   * 
+   *
    * @param loggedIn
    */
   public void setLoggedIn(boolean loggedIn) {
@@ -39,7 +39,7 @@ public class LoginStatus {
 
   /**
    * Get username (or login)
-   * 
+   *
    * @return username
    */
   public String getUsername() {
@@ -48,7 +48,7 @@ public class LoginStatus {
 
   /**
    * Set username (or login)
-   * 
+   *
    * @param username
    */
   public void setUsername(String username) {

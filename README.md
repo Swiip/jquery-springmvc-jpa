@@ -6,6 +6,8 @@ Of course, this implies lots of framework and architecture choices which are min
 
 This repo is in constant evolution but you can find in branches the major architectures switch. At this time, there is one old branche which is jQuery UI that I replaced by BackboneJS (I know that the two technologies are not the same but I still replaced on by the other).
 
+This version is less ambitious than the previous one as there is only read only features, I apologize but have unfortunatly my own planning constraints.
+
 My goal is to fully comment the code and the Git repository to explain how the different technologies are integrated.
 
 ## Chosen technologies
@@ -18,36 +20,28 @@ As described in the main title, the major technologies are [JPA 2][], [Spring][S
 - [Spring Data JPA] 1.1 _as DAO layer implementation_
 - [Spring Framework] 3.2 _as main IoC container_
 - [Spring MVC] 3.2 _as web framework_
-- Spring Data Rest 3.2 _as REST exporter_
+- [Spring Data Rest] 3.2 _as REST exporter_
 - [Spring Security] 3.1 _as security framework_
 
 ### JavaScript frameworks
 - [RequireJS] 2.0 _as JavaScript file and module loader_
 - [jQuery] 1.8 _as main JavaScript framework_
-- BackboneJS 0.9 _as Web UI structure_
-- Twitter Bootstrap _as front-end framework_
+- [BackboneJS] 0.9 _as Web UI structure_
+- [Twitter Bootstrap] _as front-end framework_
 
 ### Design patterns and guide lines
 - [Single-page application] (even for the login)
 - [RESTful] [JSON] API
-- [CloudFoundry] compatible
 
 ## Key integrations
 
 This sections contains a quick description of the key integration points between all technologies with a link to the file involved.
 
-### Data Source definition
-
-The application has to work on CloudFoundry. CloudFoundry brings useful [Spring tools to set up a data source from a CloudFoundry service](http://start.cloudfoundry.com/frameworks/java/spring/spring.html).
-
-But to be able to test the application without deploy on CloudFoundry every time, we'll need to be able to switch from a standard data source easily. To do that, we use the Spring 3.1 new feature which allow to [define different beans with profiles](http://static.springsource.org/spring/docs/3.1.x/spring-framework-reference/html/new-in-3.1.html#d0e1293).
-
-In the project you will find [applicationContext-ds.xml](blob/master/src/main/resources/META-INF/applicationContext-ds.xml) which contains the two data sources with a different profile and
-[CloudApplicationContextInitializer.java](blob/master/src/main/java/org/cloudfoundry/services/CloudApplicationContextInitializer.java) class which automatically activate the right profile.
-
 ### No XML Spring configuration
 
-TODO
+Servlet 3.0 and Spring 3.1 adds support of full Java based configuration replacing web.xml and applicationContext.xml. It allows smaller and compiled configurations for building XML free applications.
+
+This application demonstrate this new way of configuration. As I writing this, Spring Security doesn't implement XML free configuration. Security configuration and Maven configuration are the last XML file of the application.
 
 ### Spring Data JPA configuration
 
@@ -58,12 +52,10 @@ The Spring Data JPA implement standard JpaRepository interface methods and the s
 
 ### Spring MVC, Spring Data Rest
 
-Spring MVC is used in very standard way. The DispatcherServlet is declared in the [web.xml](blob/master/src/main/webapp/WEB-INF/web.xml).
-It will load the [spring-servlet.xml](blob/master/src/main/webapp/WEB-INF/spring-servlet.xml) Spring MVC configuration file which declare component scan and annotation configuration for @Controller annotated classes.
+Spring Data Rest is very good new idea of Spring Source team and build a bridge from Spring Data to Spring MVC. It allows us to automatically published a Spring Data models.
 
-The RESTful mapping works with Spring MVC's annotations @RequestMapping with path value and RequestMethod settings like in the [UserController.java](blob/master/src/main/java/com/developpez/skillbrowser/controller/UserController.java).
-
-TODO
+Spring MVC is used to publish a more specialized service which is the ajax login.
+in very standard way. The DispatcherServlet is declared in the [web.xml](blob/master/src/main/webapp/WEB-INF/web.xml).
 
 ### Single page application even for login
 
@@ -89,14 +81,15 @@ This root script configure [RequireJS][], define some dependencies and bootstrap
 
 ### Backbone JS Web UI structure
 
-TODO
+The Web UI is structured with Backcbone JS. All concepts of Backbone are used in the project : Model with the login status, Collections with the users and skills, View with all components of the interface : login popup and data grids, and finally Router which drive the Url hashtags listening.
+
+All Backbone objects are defined as RequireJS modules with dependencies on js and text files.
 
 ### Backbone JS Hateoas models
 
-TODO
+Hateoas used in Spring Data Rest are structured JSON data which allow to abstract parsing and automatically construct Backbone models and collections to navigate into data.
 
-
-
+Data mapping in the project are mostly generic and placed in a special Hateoas Backbone extension which implements this concept.
 
 [Hibernate]: http://www.hibernate.org/  "Hibernate: Relational Persistence for Java and .NET"
 [JPA 2]: http://en.wikipedia.org/wiki/Java_Persistence_API "Java Persistence API"
@@ -113,3 +106,6 @@ TODO
 [RESTful]: http://en.wikipedia.org/wiki/RESTful "Representational state transfer"
 [JSON]: http://www.json.org/ "JavaScript Object Notation"
 [CloudFoundry]: http://www.cloudfoundry.org/ "The open platform as a service project"
+[Spring Data Rest]: http://www.springsource.org/spring-data/rest "easy expose JPA based repositories as RESTful endpoints"
+[BackboneJS]: http://backbonejs.org/ "gives structure to web applications"
+[Twitter Bootstrap]: http://twitter.github.com/bootstrap/ "Sleek, intuitive, and powerful front-end framework for faster and easier web development"
