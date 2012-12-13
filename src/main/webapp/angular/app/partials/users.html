@@ -1,0 +1,21 @@
+<div ng-grid="users">
+  <table class="table table-striped table-bordered">
+    <thead>
+      <tr>
+        <th ng-head sort="login">Login</th>
+        <th ng-head sort="fullname">Fullname</th>
+        <th ng-head>Skills</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="model in grid.data">
+        <td>{{model.login}}</td>
+        <td>{{model.fullname}}</td>
+        <td>
+          <span ng-repeat="skill in model.skills" class="label">{{skill.name}}</span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div ng-pager class="pagination pagination-right"></div>
+</div>
