@@ -22,6 +22,39 @@
     </div>
   </div>
 
+  <div ng-controller="LoginController" ng-modal="modal" class="modal hide fade login">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+      <h3>Login</h3>
+    </div>
+    <div class="modal-body">
+      <form class="form-horizontal">
+        <div class="control-group">
+          <label class="control-label" for="username">Login</label>
+          <div class="controls">
+            <input type="text" id="username" placeholder="Login" ng-model="loginStatus.username">
+          </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label" for="password">Password</label>
+          <div class="controls">
+            <input type="password" id="password" placeholder="Password" ng-model="loginStatus.password">
+          </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label" for="rememberMe">Remember me</label>
+          <div class="controls">
+            <input type="checkbox" id="rememberMe" />
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <a href="#" class="btn" ng-click="modalShown=false">Cancel</a>
+      <a href="#" class="btn btn-primary" ng-click="login()">Login</a>
+    </div>
+  </div>
+
   <div class="container">
     <div class="row">
 
@@ -41,7 +74,6 @@
   <script src="lib/bootstrap/js/bootstrap.js"></script>
   <script src="lib/angular-1.1.1/angular.js"></script>
   <script src="lib/angular-1.1.1/angular-resource.js"></script>
-  <script src="lib/ui/angular-ui.js"></script>
   <script src="js/app.js"></script>
   <script src="js/services.js"></script>
   <script src="js/controllers.js"></script>

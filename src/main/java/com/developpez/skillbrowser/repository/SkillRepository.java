@@ -5,7 +5,10 @@ import com.developpez.skillbrowser.model.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.rest.repository.annotation.RestResource;
+
+import java.util.List;
 
 /**
  * Interface for the Data Access Object for the Skill model. It extends JpaRepository which is part of Spring Data JPA and declares all the commons
@@ -26,5 +29,9 @@ public interface SkillRepository extends JpaRepository<Skill, Integer> {
    * @return a page of skill matching the page parameters and the user
    */
   Page<Skill> findByUsers(User user, Pageable pageable);
+
+  @RestResource(path = "toto", rel = "titi")
+  @Query("select skill from Skill skill")
+  List<Skill> findAllWithoutPagination();
 
 }

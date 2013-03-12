@@ -2,10 +2,9 @@
 
 
 // Declare app level module which depends on filters, and services
-angular.module('skillbrowser', ['ui', 'skillbrowser.filters', 'skillbrowser.services', 'skillbrowser.directives']).
+angular.module('skillbrowser', ['skillbrowser.filters', 'skillbrowser.services', 'skillbrowser.directives']).
   config(['$routeProvider', function($routeProvider) {
     $routeProvider.when('/', {templateUrl: 'partials/welcome.html', controller: WelcomeController});
-    $routeProvider.when('/login', {templateUrl: 'partials/login.html', controller: LoginController});
     $routeProvider.when('/users', {templateUrl: 'partials/users.html', controller: UsersController});
     $routeProvider.when('/users/:page', {templateUrl: 'partials/users.html', controller: UsersController});
     $routeProvider.when('/users/:page/:sort/:dir', {templateUrl: 'partials/users.html', controller: UsersController});
@@ -13,10 +12,15 @@ angular.module('skillbrowser', ['ui', 'skillbrowser.filters', 'skillbrowser.serv
     $routeProvider.when('/skills/:page', {templateUrl: 'partials/skills.html', controller: SkillsController});
     $routeProvider.when('/skills/:page/:sort/:dir', {templateUrl: 'partials/skills.html', controller: SkillsController});
     $routeProvider.otherwise({redirectTo: '/'});
-  }]).run(function(Login, $location) {
-      Login.get(function(loginStatus) {
-        if(!loginStatus.loggedIn) {
-          $location.url("/login");
-        }
-      })
-  });
+  }]);
+
+
+/*
+Voir sil est possible de faire passer les controllers dans le système d'injection
+Voir sil est possible de créer un service pour factoriser les controllers
+Créer un service pour les services REST Hateoas
+- Permettre le save en virant les jointures et en utilisant le lien self
+- Reproduire les fonctionnalités de base type get
+- Trouver une façon pratique de résoudre les jointures
+- Voir s'il est possible de faire un système de references
+*/

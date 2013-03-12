@@ -17,8 +17,9 @@ define([
    */
   Hateoas.Model = Backbone.Model.extend({
     parse:function (data) {
-      if (data._links) {
-        _.each(data._links, function (link) {
+      console.log('Model parse', data);
+      if (data.links) {
+        _.each(data.links, function (link) {
           if (link.rel == 'self') {
             this.url = link.href;
           } else {
@@ -30,7 +31,7 @@ define([
             data[link.rel] = Hateoas.reference[link.href];
           }
         }, this);
-        delete data._links;
+        delete data.links;
       }
       return data;
     }
@@ -41,9 +42,11 @@ define([
    */
   Hateoas.Collection = Backbone.Collection.extend({
     parse:function (data) {
-      if (data._links) {
-        var links = data._links;
-        data = [];
+      console.log('Collection parse', data);
+      /*var content = data.content;
+      if (data.links) {
+        var links = data.links;
+        //data = [];
         _.each(links, function (link) {
           if (!Hateoas.reference[link.href]) {
             var model = new Hateoas.Model();
@@ -52,9 +55,9 @@ define([
           }
           data.push(Hateoas.reference[link.href]);
         }, this);
-        delete data._links;
-      }
-      return data;
+        //delete data.links;
+      }*/
+      return data.content;
     }
   });
   /**
@@ -73,10 +76,12 @@ define([
       this.dir = null;
     },
     parse:function (data) {
-      this.totalCount = data.totalCount;
-      this.totalPages = data.totalPages;
-      this.currentPage = data.currentPage;
-      return data.results;
+      this.totalCount = data.page.totalElements;
+      this.totalPages = data.page.totalPages;
+      this.currentPage = data.page.number;
+      //data.content._links = data.links;
+      console.log('Hateoas parse', data);
+      return data.content;
     },
     fetchPage:function () {
       var data = {

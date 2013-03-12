@@ -33,7 +33,7 @@ import java.io.IOException;
  */
 @Controller
 @RequestMapping("/login")
-public class LoginController {
+public class    LoginController {
 
   /**
    * Spring Security center object "authentication manager"

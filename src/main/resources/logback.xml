@@ -8,7 +8,7 @@
     </encoder>
   </appender>
 
-  <logger name="org.springframework.data.rest" level="DEBUG" />
+  <!--<logger name="org.springframework.data.rest" level="DEBUG" />-->
   <logger name="org.springframework.data" level="INFO" />
 
   <root level="INFO">

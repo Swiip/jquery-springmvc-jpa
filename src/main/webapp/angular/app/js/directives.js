@@ -6,13 +6,24 @@ angular.module('skillbrowser.directives', []).
   directive('ngGrid',function () {
     return {
       restrict: 'A',
-      scope: { grid: "=ngGrid" },
-      controller: function () {}
+      scope: true,
+      controller: function () {
+      },
+      link: function (scope, elm, attrs) {
+        scope._grid = {
+          link: attrs.link
+        };
+        angular.forEach(["page", "total", "sort", "dir"], function (attr) {
+          scope.$watch(attrs[attr], function(value) {
+            scope._grid[attr] = value;
+          });
+        });
+      }
     };
   }).
   directive("ngHead",function () {
-    var sortTemplate = "<a ng-switch on=\"grid.sort == key\" ng-href=\"{{grid.link}}/{{grid.page}}/{{key}}/{{grid.sort == key && grid.dir == 'asc' && 'desc' || 'asc'}}\">" +
-      "<div ng-transclude></div><img ng-switch-when=\"true\" ng-class=\"{'icon-chevron-down': grid.dir == 'asc', 'icon-chevron-up': grid.dir == 'desc'}\"/></a>";
+    var sortTemplate = "<a ng-switch on=\"_grid.sort == key\" ng-href=\"{{_grid.link}}/{{_grid.page}}/{{key}}/{{_grid.sort == key && _grid.dir == 'asc' && 'desc' || 'asc'}}\">" +
+      "<div ng-transclude></div><img ng-switch-when=\"true\" ng-class=\"{'icon-chevron-down': _grid.dir == 'asc', 'icon-chevron-up': _grid.dir == 'desc'}\"/></a>";
     var simpleTemplate = "<div ng-transclude></div>";
     return {
       restrict: 'A',
@@ -36,11 +47,22 @@ angular.module('skillbrowser.directives', []).
       restrict: 'A',
       require: '^ngGrid',
       scope: true,
-      template: "<ul><li ng-class=\"{disabled: grid.page == 1}\"><a ng-href=\"{{grid.link}}/{{grid.page == 1 && 1 || grid.page - 1}}{{grid.sort && '/' + grid.sort + '/' + grid.dir}}\">&lt;</a></li>" +
-        "<li ng-repeat=\"page in [] | range:1:grid.total+1\" ng-class=\"{active: page == grid.page}\">" +
-        "<a ng-href=\"{{grid.link}}/{{page}}{{grid.sort && '/' + grid.sort + '/' + grid.dir}}\">{{page}}</a></li>" +
-        "<li ng-class=\"{disabled: grid.page == grid.total}\"><a ng-href=\"{{grid.link}}/{{grid.page == grid.total && grid.total || grid.page + 1}}{{grid.sort && '/' + grid.sort + '/' + grid.dir}}\">&gt;</a></li></ul>"
+      template: "<ul><li ng-class=\"{disabled: _grid.page == 1}\"><a ng-href=\"{{_grid.link}}/{{_grid.page == 1 && 1 || _grid.page - 1}}{{_grid.sort && '/' + _grid.sort + '/' + _grid.dir}}\">&lt;</a></li>" +
+        "<li ng-repeat=\"page in [] | range:1:_grid.total+1\" ng-class=\"{active: page == _grid.page}\">" +
+        "<a ng-href=\"{{_grid.link}}/{{page}}{{_grid.sort && '/' + _grid.sort + '/' + _grid.dir}}\">{{page}}</a></li>" +
+        "<li ng-class=\"{disabled: grid.page == grid.total}\"><a ng-href=\"{{_grid.link}}/{{_grid.page == _grid.total && _grid.total || _grid.page + 1}}{{_grid.sort && '/' + _grid.sort + '/' + _grid.dir}}\">&gt;</a></li></ul>"
     }
+  }).
+  directive("ngModal",function () {
+    return {
+      restrict: 'A',
+      scope: true,
+      link: function (scope, elm, attrs, model) {
+        scope.$watch(attrs.ngModal, function (value) {
+          elm.modal(value && 'show' || 'hide');
+        });
+      }
+    };
   }).
   directive('appVersion', ['version', function (version) {
     return function (scope, elm, attrs) {

@@ -1,4 +1,4 @@
-<div ng-grid="users">
+<div ng-grid="users" link="#users" page="data.currentPage" total="data.totalPages" sort="sort" dir="dir">
   <table class="table table-striped table-bordered">
     <thead>
       <tr>
@@ -8,14 +8,47 @@
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="model in grid.data">
-        <td>{{model.login}}</td>
-        <td>{{model.fullname}}</td>
+      <tr ng-repeat="user in data.results" ng-click="edit(user)">
+        <td >{{user.login}}</td>
+        <td>{{user.fullname}}</td>
         <td>
-          <span ng-repeat="skill in model.skills" class="label">{{skill.name}}</span>
+          <span ng-repeat="skill in user['user.User.skills']" class="label">
+            {{skill.name}}
+          </span>
         </td>
       </tr>
     </tbody>
   </table>
   <div ng-pager class="pagination pagination-right"></div>
+</div>
+<div ng-modal="modal" class="modal hide fade login">
+  <div class="modal-header">
+    <h3>Edit user</h3>
+  </div>
+  <div class="modal-body">
+    <form class="form-horizontal">
+      <div class="control-group">
+        <label class="control-label" for="username">Login</label>
+        <div class="controls">
+          <input type="text" id="username" placeholder="Login" ng-model="user.login">
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label" for="fullname">Fullname</label>
+        <div class="controls">
+          <input type="text" id="fullname" placeholder="Password" ng-model="user.fullname">
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label" for="password">Password</label>
+        <div class="controls">
+          <input type="password" id="password" placeholder="Password" ng-model="user.password">
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <a class="btn" ng-click="modal=false">Cancel</a>
+    <a class="btn btn-primary" ng-click="save()">Save</a>
+  </div>
 </div>

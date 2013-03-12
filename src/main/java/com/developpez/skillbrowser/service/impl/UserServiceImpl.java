@@ -60,6 +60,8 @@ public class UserServiceImpl implements UserDetailsService, InitializingBean {
      * way, there is no need of SQL initialization script which is so boring to handle (and even more on CloudFoundry)
      */
     public void afterPropertiesSet() throws Exception {
+        System.out.println("kikoo");
+
         Skill skill1 = new Skill();
         skill1.setName("toto 1");
         skillRepository.save(skill1);
