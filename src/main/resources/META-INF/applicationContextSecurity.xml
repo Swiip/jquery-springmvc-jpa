@@ -19,6 +19,8 @@
   <http entry-point-ref="http403ForbiddenEntryPoint">
     <!-- The filter is mapped on every request in /rest/** and require a "ROLE_USER" profile -->
     <intercept-url pattern="/rest/**" access="ROLE_USER" />
+	<!-- The filter is mapped on every request in /data-rest/** and require a "ROLE_USER" profile -->
+	<intercept-url pattern="/data-rest/**" access="ROLE_USER" />
     <!-- Remember me mechanism trigger -->
     <remember-me />
   </http>
