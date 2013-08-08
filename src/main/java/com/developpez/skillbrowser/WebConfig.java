@@ -9,6 +9,9 @@ import org.springframework.web.servlet.DispatcherServlet;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletRegistration;
 
+import javax.servlet.FilterRegistration;
+import org.springframework.web.filter.DelegatingFilterProxy;
+
 /**
  * Spring Web configuration in replacement for web.xml.
  * It's a Spring overlay for the new Servlet 3.0 Java configuration.
@@ -27,6 +30,10 @@ public class WebConfig implements WebApplicationInitializer {
 
     // Manage the lifecycle of the root application context
     container.addListener(new ContextLoaderListener(applicationContext));
+	
+	// Add springSecurityFilterChain to the context
+	FilterRegistration.Dynamic springSecurityFilterChain = container.addFilter( "springSecurityFilterChain", DelegatingFilterProxy.class );
+	springSecurityFilterChain.addMappingForUrlPatterns( null, false, "/*" );
 
     // Register and map the dispatcher servlet
     DispatcherServlet servletDispatcher = new DispatcherServlet(applicationContext);
